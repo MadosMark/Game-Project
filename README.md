@@ -1,5 +1,6 @@
 INSERT MANDATORY GIF
- Test 
+Test
+
 # Project Title
 
 Text about the project and which JavaScript library you're using. This would also be a great place to link the game on Netlify.
@@ -20,8 +21,8 @@ Add the installation instructions.
 
 Tested by the following people:
 
-1. 
+1.
 
 Tested by the following muggles (non-coders):
 
-1. 
+1.
