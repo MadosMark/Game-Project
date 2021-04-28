@@ -10,7 +10,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.audio("hit", "assets/hit.m4a");
     this.load.audio("reach", "assets/reach.m4a");
     this.load.image("ground", "assets/ground.png");
-    this.load.image("dino-idle", "assets/dino-idle.png");
+    this.load.image("dino-idle", "assets/dino-idler.png");
     this.load.image("dino-hurt", "assets/dino-hurt.png");
     this.load.image("restart", "assets/restart.png");
     this.load.image("game-over", "assets/game-over.png");
@@ -35,7 +35,7 @@ class PreloadScene extends Phaser.Scene {
       frameHeight: 40,
     });
 
-    this.load.spritesheet("dino", "assets/dino-run.png", {
+    this.load.spritesheet("dino", "assets/dino-run-ds.png", {
       frameWidth: 88,
       frameHeight: 94,
     });
