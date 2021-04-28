@@ -1,11 +1,11 @@
-body {
+/* body {
   padding: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: black; */
-}
-canvas {
+  /* background-color: black; 
+}*/
+/* canvas {
   border: 4px solid black;
   background: rgb(131, 58, 180);
   background: linear-gradient(
@@ -17,4 +17,4 @@ canvas {
     rgba(47, 181, 253, 1) 1%,
     rgba(251, 251, 251, 1) 100%
   );
-}
+} */

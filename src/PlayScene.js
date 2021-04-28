@@ -54,7 +54,9 @@ class PlayScene extends Phaser.Scene {
       this.add.image(width / 2, 170, "cloud"),
       this.add.image(width - 80, 80, "cloud"),
       this.add.image(width / 1.3, 100, "cloud"),
+      this.add.image(width - 100, 20, "sun"),
     ]);
+
     this.environment.setAlpha(0);
 
     this.gameOverScreen = this.add
@@ -136,7 +138,7 @@ class PlayScene extends Phaser.Scene {
               this.isGameRunning = true;
               this.dino.setVelocityX(0);
               this.scoreText.setAlpha(1);
-              this.environment.setAlpha(0);
+              this.environment.setAlpha(1);
               startEvent.remove();
             }
           },
