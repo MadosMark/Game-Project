@@ -25,7 +25,6 @@ class PlayScene extends Phaser.Scene {
       .setOrigin(0, 1);
     this.dino = this.physics.add
       .sprite(0, height, "dino-idle")
-      // .sprite(0, height, "leif")
       .setCollideWorldBounds(true)
       .setGravityY(5000)
       .setBodySize(44, 92)
@@ -137,7 +136,7 @@ class PlayScene extends Phaser.Scene {
               this.isGameRunning = true;
               this.dino.setVelocityX(0);
               this.scoreText.setAlpha(1);
-              this.environment.setAlpha(1);
+              this.environment.setAlpha(0);
               startEvent.remove();
             }
           },
