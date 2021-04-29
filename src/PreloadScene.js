@@ -6,16 +6,16 @@ class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.audio("jump", "assets/jump.m4a");
-    this.load.audio("hit", "assets/hit.m4a");
+    this.load.audio("jump", "assets/trump/no-trump.m4a");
+    this.load.audio("hit", "assets/trump/10-feet-taller.m4a");
     this.load.audio("reach", "assets/reach.m4a");
     this.load.image("ground", "assets/figma/ground.png");
-    this.load.image("dino-idle", "assets/figma/dino-idle-ds.png");
-    this.load.image("dino-hurt", "assets/figma/dino-hurt-ds.png");
+    this.load.image("dino-hurt", "assets/trump/trump_dead.png");
     this.load.image("restart", "assets/restart.png");
     this.load.image("game-over", "assets/game-over.png");
-    this.load.image("cloud", "assets/cloud.png");
+    this.load.image("cloud", "assets/figma/clouud.png");
     this.load.image("sun", "assets/figma/trams/leffesol.png");
+    this.load.image("trump_iddle", "assets/trump/trump_iddle.png");
 
     this.load.spritesheet("star", "assets/stars.png", {
       frameWidth: 9,
@@ -27,7 +27,12 @@ class PreloadScene extends Phaser.Scene {
       frameHeight: 40,
     });
 
-    this.load.spritesheet("dino", "assets/figma/dino-run-ds.png", {
+    // this.load.spritesheet("dino", "assets/figma/dino-run-ds.png", {
+    //   frameWidth: 88,
+    //   frameHeight: 94,
+    // });
+
+    this.load.spritesheet("dino", "assets/trump/trump_run.png", {
       frameWidth: 88,
       frameHeight: 94,
     });
@@ -42,10 +47,10 @@ class PreloadScene extends Phaser.Scene {
       frameHeight: 77,
     });
 
-    this.load.image("obsticle-1", "assets/cactuses_small_1.png");
-    this.load.image("obsticle-2", "assets/cactuses_small_2.png");
+    this.load.image("obsticle-1", "assets/trump/mexican.png");
+    this.load.image("obsticle-2", "assets/trump/twitter.png");
     this.load.image("obsticle-3", "assets/cactuses_small_3.png");
-    this.load.image("obsticle-4", "assets/cactuses_big_1.png");
+    this.load.image("obsticle-4", "assets/trump/mexican_big.png");
     this.load.image("obsticle-5", "assets/cactuses_big_2.png");
     this.load.image("obsticle-6", "assets/cactuses_big_3.png");
   }

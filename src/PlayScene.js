@@ -7,7 +7,8 @@ class PlayScene extends Phaser.Scene {
 
   create() {
     const { height, width } = this.game.config;
-    this.gameSpeed = 10;
+    // this.gameSpeed = 10;
+    this.gameSpeed = 7;
     this.isGameRunning = false;
     this.respawnTime = 0;
     this.score = 0;
@@ -24,10 +25,10 @@ class PlayScene extends Phaser.Scene {
       .tileSprite(0, height, 88, 26, "ground")
       .setOrigin(0, 1);
     this.dino = this.physics.add
-      .sprite(0, height, "dino-idle")
+      .sprite(0, height, "trump_iddle")
       .setCollideWorldBounds(true)
       .setGravityY(5000)
-      .setBodySize(44, 92)
+      .setBodySize(44, 90)
       .setDepth(1)
       .setOrigin(0, 1);
 
@@ -152,7 +153,7 @@ class PlayScene extends Phaser.Scene {
   initAnims() {
     this.anims.create({
       key: "dino-run",
-      frames: this.anims.generateFrameNumbers("dino", { start: 2, end: 3 }),
+      frames: this.anims.generateFrameNumbers("dino", { start: 1, end: 4 }),
       frameRate: 10,
       repeat: -1,
     });
