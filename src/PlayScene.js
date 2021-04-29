@@ -55,7 +55,9 @@ class PlayScene extends Phaser.Scene {
       this.add.image(width / 2, 170, "cloud"),
       this.add.image(width - 80, 80, "cloud"),
       this.add.image(width / 1.3, 100, "cloud"),
-      this.add.image(width - 100, 20, "sun"),
+      this.add.image(width / 1.5, 80, "flag"),
+      this.add.image(width / 4, 110, "flag"),
+      this.add.image(width / -1, 100, "sun"),
     ]);
 
     this.environment.setAlpha(0);
@@ -225,6 +227,30 @@ class PlayScene extends Phaser.Scene {
       this.gameOverScreen.setAlpha(0);
       this.anims.resumeAll();
     });
+// Playing with AWSD
+    this.input.keyboard.on('keydown-A', () => {
+      this.dino.body.height = 92;
+      this.dino.body.offset.y = 0;
+      this.dino.setVelocityY(-1600);
+      this.dino.setTexture("dino", 0);
+
+    });
+    this.input.keyboard.on('keydown-W', () => {
+      this.dino.body.height = 0;
+      this.dino.body.offset.x = 30;
+
+    });
+    this.input.keyboard.on('keydown-S', () => {
+      this.dino.body.height = 0;
+      this.dino.body.offset.x = 30;
+
+    });
+    this.input.keyboard.on('keydown-D', () => {
+      this.dino.body.height = 0;
+      this.dino.body.offset.x = 30;
+
+    });
+    // END AWSD
 
     this.input.keyboard.on("keydown_SPACE", () => {
       if (!this.dino.body.onFloor() || this.dino.body.velocity.x > 0) {
