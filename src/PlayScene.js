@@ -155,7 +155,7 @@ class PlayScene extends Phaser.Scene {
   initAnims() {
     this.anims.create({
       key: "dino-run",
-      frames: this.anims.generateFrameNumbers("dino", { start: 1, end: 4 }),
+      frames: this.anims.generateFrameNumbers("dino", { start: 0, end: 4 }),
       frameRate: 10,
       repeat: -1,
     });
@@ -227,28 +227,24 @@ class PlayScene extends Phaser.Scene {
       this.gameOverScreen.setAlpha(0);
       this.anims.resumeAll();
     });
-// Playing with AWSD
-    this.input.keyboard.on('keydown-A', () => {
+    // Playing with AWSD
+    this.input.keyboard.on("keydown-A", () => {
       this.dino.body.height = 92;
       this.dino.body.offset.y = 0;
       this.dino.setVelocityY(-1600);
       this.dino.setTexture("dino", 0);
-
     });
-    this.input.keyboard.on('keydown-W', () => {
+    this.input.keyboard.on("keydown-W", () => {
       this.dino.body.height = 0;
       this.dino.body.offset.x = 30;
-
     });
-    this.input.keyboard.on('keydown-S', () => {
+    this.input.keyboard.on("keydown-S", () => {
       this.dino.body.height = 0;
       this.dino.body.offset.x = 30;
-
     });
-    this.input.keyboard.on('keydown-D', () => {
+    this.input.keyboard.on("keydown-D", () => {
       this.dino.body.height = 0;
       this.dino.body.offset.x = 30;
-
     });
     // END AWSD
 
