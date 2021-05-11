@@ -7,8 +7,7 @@ class PlayScene extends Phaser.Scene {
 
   create() {
     const { height, width } = this.game.config;
-    // this.gameSpeed = 10;
-    this.gameSpeed = 7;
+    this.gameSpeed = 10;
     this.isGameRunning = false;
     this.respawnTime = 0;
     this.score = 0;
@@ -24,8 +23,8 @@ class PlayScene extends Phaser.Scene {
     this.ground = this.add
       .tileSprite(0, height, 88, 26, "ground")
       .setOrigin(0, 1);
-    this.dino = this.physics.add
-      .sprite(0, height, "trump_iddle")
+    this.trump = this.physics.add
+      .sprite(0, height, "trump_idle")
       .setCollideWorldBounds(true)
       .setGravityY(5000)
       .setBodySize(44, 90)
@@ -80,7 +79,7 @@ class PlayScene extends Phaser.Scene {
 
   initColliders() {
     this.physics.add.collider(
-      this.dino,
+      this.trump,
       this.obsticles,
       () => {
         this.highScoreText.x = this.scoreText.x - this.scoreText.width - 20;
@@ -99,7 +98,7 @@ class PlayScene extends Phaser.Scene {
         this.physics.pause();
         this.isGameRunning = false;
         this.anims.pauseAll();
-        this.dino.setTexture("dino-hurt");
+        this.trump.setTexture("dino-hurt");
         this.respawnTime = 0;
         this.gameSpeed = 10;
         this.gameOverScreen.setAlpha(1);
@@ -115,7 +114,7 @@ class PlayScene extends Phaser.Scene {
     const { width, height } = this.game.config;
     this.physics.add.overlap(
       this.startTrigger,
-      this.dino,
+      this.trump,
       () => {
         if (this.startTrigger.y === 10) {
           this.startTrigger.body.reset(0, height);
@@ -129,8 +128,8 @@ class PlayScene extends Phaser.Scene {
           loop: true,
           callbackScope: this,
           callback: () => {
-            this.dino.setVelocityX(80);
-            this.dino.play("dino-run", 1);
+            this.trump.setVelocityX(80);
+            this.trump.play("dino-run", 1);
 
             if (this.ground.width < width) {
               this.ground.width += 17 * 2;
@@ -139,7 +138,7 @@ class PlayScene extends Phaser.Scene {
             if (this.ground.width >= 1000) {
               this.ground.width = width;
               this.isGameRunning = true;
-              this.dino.setVelocityX(0);
+              this.trump.setVelocityX(0);
               this.scoreText.setAlpha(1);
               this.environment.setAlpha(1);
               startEvent.remove();
@@ -155,7 +154,7 @@ class PlayScene extends Phaser.Scene {
   initAnims() {
     this.anims.create({
       key: "dino-run",
-      frames: this.anims.generateFrameNumbers("dino", { start: 1, end: 4 }),
+      frames: this.anims.generateFrameNumbers("dino", { start: 0, end: 4 }),
       frameRate: 10,
       repeat: -1,
     });
@@ -192,7 +191,7 @@ class PlayScene extends Phaser.Scene {
         }
 
         this.score++;
-        this.gameSpeed += 0.01;
+        this.gameSpeed += 0.02;
 
         if (this.score % 100 === 0) {
           this.reachSound.play();
@@ -218,74 +217,70 @@ class PlayScene extends Phaser.Scene {
 
   handleInputs() {
     this.restart.on("pointerdown", () => {
-      this.dino.setVelocityY(0);
-      this.dino.body.height = 92;
-      this.dino.body.offset.y = 0;
+      this.trump.setVelocityY(0);
+      this.trump.body.height = 92;
+      this.trump.body.offset.y = 0;
       this.physics.resume();
       this.obsticles.clear(true, true);
       this.isGameRunning = true;
       this.gameOverScreen.setAlpha(0);
       this.anims.resumeAll();
     });
-// Playing with AWSD
-    this.input.keyboard.on('keydown-A', () => {
-      this.dino.body.height = 92;
-      this.dino.body.offset.y = 0;
-      this.dino.setVelocityY(-1600);
-      this.dino.setTexture("dino", 0);
-
-    });
-    this.input.keyboard.on('keydown-W', () => {
-      this.dino.body.height = 0;
-      this.dino.body.offset.x = 30;
-
-    });
-    this.input.keyboard.on('keydown-S', () => {
-      this.dino.body.height = 0;
-      this.dino.body.offset.x = 30;
-
-    });
-    this.input.keyboard.on('keydown-D', () => {
-      this.dino.body.height = 0;
-      this.dino.body.offset.x = 30;
-
-    });
+    // Playing with AWSD
+    // this.input.keyboard.on("keydown-A", () => {
+    //   this.trump.body.height = 92;
+    //   this.trump.body.offset.y = 0;
+    //   this.trump.setVelocityY(-1600);
+    //   this.trump.setTexture("dino", 0);
+    // });
+    // this.input.keyboard.on("keydown-W", () => {
+    //   this.trump.body.height = 0;
+    //   this.trump.body.offset.x = 30;
+    // });
+    // this.input.keyboard.on("keydown-S", () => {
+    //   this.trump.body.height = 0;
+    //   this.trump.body.offset.x = 30;
+    // });
+    // this.input.keyboard.on("keydown-D", () => {
+    //   this.trump.body.height = 0;
+    //   this.trump.body.offset.x = 30;
+    // });
     // END AWSD
 
     this.input.keyboard.on("keydown_SPACE", () => {
-      if (!this.dino.body.onFloor() || this.dino.body.velocity.x > 0) {
+      if (!this.trump.body.onFloor() || this.trump.body.velocity.x > 0) {
         return;
       }
 
       this.jumpSound.play();
-      this.dino.body.height = 92;
-      this.dino.body.offset.y = 0;
-      this.dino.setVelocityY(-1600);
-      this.dino.setTexture("dino", 0);
+      this.trump.body.height = 92;
+      this.trump.body.offset.y = 0;
+      this.trump.setVelocityY(-1600);
+      this.trump.setTexture("dino", 0);
     });
 
-    this.input.keyboard.on("keydown_DOWN", () => {
-      if (!this.dino.body.onFloor() || !this.isGameRunning) {
-        return;
-      }
+    // this.input.keyboard.on("keydown_DOWN", () => {
+    //   if (!this.trump.body.onFloor() || !this.isGameRunning) {
+    //     return;
+    //   }
 
-      this.dino.body.height = 58;
-      this.dino.body.offset.y = 34;
-    });
+    //   this.trump.body.height = 58;
+    //   this.trump.body.offset.y = 34;
+    // });
 
     this.input.keyboard.on("keyup_DOWN", () => {
       if (this.score !== 0 && !this.isGameRunning) {
         return;
       }
 
-      this.dino.body.height = 92;
-      this.dino.body.offset.y = 0;
+      this.trump.body.height = 92;
+      this.trump.body.offset.y = 0;
     });
   }
 
   placeObsticle() {
     const obsticleNum = Math.floor(Math.random() * 7) + 1;
-    const distance = Phaser.Math.Between(600, 900);
+    const distance = Phaser.Math.Between(600, 900); // Distance between obsticles
 
     let obsticle;
     if (obsticleNum > 6) {
@@ -314,6 +309,7 @@ class PlayScene extends Phaser.Scene {
     obsticle.setImmovable();
   }
 
+  // Updates
   update(time, delta) {
     if (!this.isGameRunning) {
       return;
@@ -324,6 +320,7 @@ class PlayScene extends Phaser.Scene {
     Phaser.Actions.IncX(this.environment.getChildren(), -0.5);
 
     this.respawnTime += delta * this.gameSpeed * 0.08;
+    console.log(this.gameSpeed);
     if (this.respawnTime >= 1500) {
       this.placeObsticle();
       this.respawnTime = 0;
@@ -341,13 +338,13 @@ class PlayScene extends Phaser.Scene {
       }
     });
 
-    if (this.dino.body.deltaAbsY() > 0) {
-      this.dino.anims.stop();
-      this.dino.setTexture("dino", 0);
+    if (this.trump.body.deltaAbsY() > 0) {
+      this.trump.anims.stop();
+      this.trump.setTexture("dino", 0);
     } else {
-      this.dino.body.height <= 58
-        ? this.dino.play("dino-down-anim", true)
-        : this.dino.play("dino-run", true);
+      this.trump.body.height <= 58
+        ? this.trump.play("dino-down-anim", true)
+        : this.trump.play("dino-run", true);
     }
   }
 }

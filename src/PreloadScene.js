@@ -16,7 +16,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("flag", "assets/trump/usa_flag.png");
     this.load.image("cloud", "assets/cloud.png");
     this.load.image("sun", "assets/trump/donald-sun.png");
-    this.load.image("trump_iddle", "assets/trump/trump_iddle.png");
+    this.load.image("trump_idle", "assets/trump/trump_idle.png");
 
     this.load.spritesheet("star", "assets/stars.png", {
       frameWidth: 9,
@@ -28,11 +28,6 @@ class PreloadScene extends Phaser.Scene {
       frameHeight: 40,
     });
 
-    // this.load.spritesheet("dino", "assets/figma/dino-run-ds.png", {
-    //   frameWidth: 88,
-    //   frameHeight: 94,
-    // });
-
     this.load.spritesheet("dino", "assets/trump/trump_run.png", {
       frameWidth: 88,
       frameHeight: 94,
@@ -43,16 +38,16 @@ class PreloadScene extends Phaser.Scene {
       frameHeight: 94,
     });
 
-    this.load.spritesheet("enemy-bird", "assets/enemy-bird.png", {
+    this.load.spritesheet("enemy-bird", "assets/trump/dolla.png", {
       frameWidth: 92,
       frameHeight: 77,
     });
 
     this.load.image("obsticle-1", "assets/trump/mexican.png");
     this.load.image("obsticle-2", "assets/trump/twitter.png");
-    this.load.image("obsticle-3", "assets/cactuses_small_3.png");
+    this.load.image("obsticle-3", "assets/trump/corona.png");
     this.load.image("obsticle-4", "assets/trump/mexican_big.png");
-    this.load.image("obsticle-5", "assets/cactuses_big_2.png");
+    this.load.image("obsticle-5", "assets/trump/nuclear.png");
     this.load.image("obsticle-6", "assets/trump/money.png");
   }
 
