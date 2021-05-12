@@ -241,23 +241,19 @@ class PlayScene extends Phaser.Scene {
       this.jumpSound.play();
       this.trump.body.height = 92;
       this.trump.body.offset.y = 0;
-      this.trump.setVelocityY(-1600);
-      this.trump.setTexture("trump-run", 0);
-      this.trump.setGravity(200);
-      // DOWN
-      this.input.keyboard.on("keydown-S", () => {
-        this.trump.body.height = 92;
-        this.trump.body.offset.x = 0;
-        this.trump.setVelocityY(190);
-      });
+      this.trump.setVelocityY(-600);
+      this.trump.setGravityY(200);
     });
-
+    // DOWN
+    this.input.keyboard.on("keydown-S", () => {
+      this.trump.body.height = 92;
+      this.trump.body.offset.x = 0;
+      this.trump.setVelocityY(190);
+    });
     // Left and right
     this.input.keyboard.on("keydown-A", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      // this.trump.setGravity = 0;
-
       this.trump.setVelocityX(-90);
     });
 
