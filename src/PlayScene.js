@@ -7,7 +7,7 @@ class PlayScene extends Phaser.Scene {
 
   create() {
     const { height, width } = this.game.config;
-    this.gameSpeed = 10;
+    this.gameSpeed = 1;
     this.isGameRunning = false;
     this.respawnTime = 0;
     this.score = 0;
@@ -33,8 +33,8 @@ class PlayScene extends Phaser.Scene {
 
     this.scoreText = this.add
       .text(width, 0, "00000", {
-        fill: "#535353",
-        font: "900 35px Courier",
+        fill: "#FFDF00",
+        font: "500 25px Oswald",
         resolution: 5,
       })
       .setOrigin(1, 0)
@@ -42,8 +42,8 @@ class PlayScene extends Phaser.Scene {
 
     this.highScoreText = this.add
       .text(0, 0, "00000", {
-        fill: "#535353",
-        font: "900 35px Courier",
+        fill: "#FFDF00",
+        font: "500 25px Oswald",
         resolution: 5,
       })
       .setOrigin(1, 0)
@@ -64,8 +64,8 @@ class PlayScene extends Phaser.Scene {
     this.gameOverScreen = this.add
       .container(width / 2, height / 2 - 50)
       .setAlpha(0);
-    this.gameOverText = this.add.image(0, 10, "game-over");
-    this.restart = this.add.image(10, 180, "restart").setInteractive();
+    this.gameOverText = this.add.image(0, 20, "game-over");
+    this.restart = this.add.image(10, 190, "restart").setInteractive();
     this.gameOverScreen.add([this.gameOverText, this.restart]);
 
     this.obsticles = this.physics.add.group();
@@ -95,15 +95,16 @@ class PlayScene extends Phaser.Scene {
         this.highScoreText.setText("HI " + newScore);
         this.highScoreText.setAlpha(1);
 
-        this.physics.pause();
-        this.isGameRunning = false;
-        this.anims.pauseAll();
-        this.trump.setTexture("dino-hurt");
-        this.respawnTime = 0;
-        this.gameSpeed = 10;
-        this.gameOverScreen.setAlpha(1);
-        this.score = 0;
-        this.hitSound.play();
+        // this.physics.pause();
+        // this.isGameRunning = false;
+        this.isGameRunning = true;
+        // this.anims.pauseAll();
+        // this.trump.setTexture("trump-dead");
+        // this.respawnTime = 0;
+        // this.gameSpeed = 10;
+        // this.gameOverScreen.setAlpha(1);
+        // this.score = 0;
+        // this.hitSound.play();
       },
       null,
       this
@@ -154,7 +155,10 @@ class PlayScene extends Phaser.Scene {
   initAnims() {
     this.anims.create({
       key: "dino-run",
-      frames: this.anims.generateFrameNumbers("dino", { start: 0, end: 4 }),
+      frames: this.anims.generateFrameNumbers("trump-run", {
+        start: 0,
+        end: 4,
+      }),
       frameRate: 10,
       repeat: -1,
     });
@@ -191,7 +195,7 @@ class PlayScene extends Phaser.Scene {
         }
 
         this.score++;
-        this.gameSpeed += 0.02;
+        this.gameSpeed += 0.01;
 
         if (this.score % 100 === 0) {
           this.reachSound.play();
@@ -226,26 +230,46 @@ class PlayScene extends Phaser.Scene {
       this.gameOverScreen.setAlpha(0);
       this.anims.resumeAll();
     });
-    // Playing with AWSD
-    // this.input.keyboard.on("keydown-A", () => {
-    //   this.trump.body.height = 92;
-    //   this.trump.body.offset.y = 0;
-    //   this.trump.setVelocityY(-1600);
-    //   this.trump.setTexture("dino", 0);
-    // });
-    // this.input.keyboard.on("keydown-W", () => {
-    //   this.trump.body.height = 0;
-    //   this.trump.body.offset.x = 30;
-    // });
-    // this.input.keyboard.on("keydown-S", () => {
-    //   this.trump.body.height = 0;
-    //   this.trump.body.offset.x = 30;
-    // });
-    // this.input.keyboard.on("keydown-D", () => {
-    //   this.trump.body.height = 0;
-    //   this.trump.body.offset.x = 30;
-    // });
-    // END AWSD
+
+    ///////CUSTOM CONTROLS//////////
+    // Playing with W & S for Flappy birds stuff
+    this.input.keyboard.on("keydown-W", () => {
+      if (this.trump.body.velocity.x > 0) {
+        return;
+      }
+      // UP
+      this.jumpSound.play();
+      this.trump.body.height = 92;
+      this.trump.body.offset.y = 0;
+      this.trump.setVelocityY(-1600);
+      this.trump.setTexture("trump-run", 0);
+      this.trump.setGravity(200);
+      // DOWN
+      this.input.keyboard.on("keydown-S", () => {
+        this.trump.body.height = 92;
+        this.trump.body.offset.x = 0;
+        this.trump.setVelocityY(190);
+      });
+    });
+
+    // Left and right
+    this.input.keyboard.on("keydown-A", () => {
+      this.trump.body.height = 92;
+      this.trump.body.offset.x = 0;
+      // this.trump.setGravity = 0;
+
+      this.trump.setVelocityX(-90);
+    });
+
+    this.input.keyboard.on("keydown-D", () => {
+      this.trump.body.height = 92;
+      this.trump.body.offset.x = 0;
+      this.trump.setVelocityX(90);
+    });
+
+    // END FLAPPY BIRDS
+    ///////////////////
+    ///////////////////
 
     this.input.keyboard.on("keydown_SPACE", () => {
       if (!this.trump.body.onFloor() || this.trump.body.velocity.x > 0) {
@@ -256,7 +280,7 @@ class PlayScene extends Phaser.Scene {
       this.trump.body.height = 92;
       this.trump.body.offset.y = 0;
       this.trump.setVelocityY(-1600);
-      this.trump.setTexture("dino", 0);
+      this.trump.setTexture("trump-run", 0);
     });
 
     // this.input.keyboard.on("keydown_DOWN", () => {
@@ -314,13 +338,12 @@ class PlayScene extends Phaser.Scene {
     if (!this.isGameRunning) {
       return;
     }
-
     this.ground.tilePositionX += this.gameSpeed;
     Phaser.Actions.IncX(this.obsticles.getChildren(), -this.gameSpeed);
     Phaser.Actions.IncX(this.environment.getChildren(), -0.5);
 
     this.respawnTime += delta * this.gameSpeed * 0.08;
-    console.log(this.gameSpeed);
+    // console.log(this.gameSpeed);
     if (this.respawnTime >= 1500) {
       this.placeObsticle();
       this.respawnTime = 0;
@@ -340,7 +363,7 @@ class PlayScene extends Phaser.Scene {
 
     if (this.trump.body.deltaAbsY() > 0) {
       this.trump.anims.stop();
-      this.trump.setTexture("dino", 0);
+      this.trump.setTexture("trump-run", 0);
     } else {
       this.trump.body.height <= 58
         ? this.trump.play("dino-down-anim", true)
