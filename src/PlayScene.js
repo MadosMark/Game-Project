@@ -51,9 +51,9 @@ class PlayScene extends Phaser.Scene {
 
     this.environment = this.add.group();
     this.environment.addMultiple([
-      this.add.image(width / 2, 170, "cloud"),
-      this.add.image(width - 80, 80, "cloud"),
-      this.add.image(width / 1.3, 100, "cloud"),
+      this.add.image(width / 2, 190, "cloud"),
+      this.add.image(width - 110, 150, "cloud"),
+      // this.add.image(width / 1.3, 130, "cloud"),
       this.add.image(width / 1.5, 80, "flag"),
       this.add.image(width / 4, 110, "flag"),
       this.add.image(width / -1, 100, "sun"),
@@ -64,8 +64,8 @@ class PlayScene extends Phaser.Scene {
     this.gameOverScreen = this.add
       .container(width / 2, height / 2 - 50)
       .setAlpha(0);
-    this.gameOverText = this.add.image(0, 0, "game-over");
-    this.restart = this.add.image(0, 80, "restart").setInteractive();
+    this.gameOverText = this.add.image(0, 10, "game-over");
+    this.restart = this.add.image(10, 180, "restart").setInteractive();
     this.gameOverScreen.add([this.gameOverText, this.restart]);
 
     this.obsticles = this.physics.add.group();
