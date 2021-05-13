@@ -7,7 +7,7 @@ class PlayScene extends Phaser.Scene {
 
   create() {
     const { height, width } = this.game.config;
-    this.gameSpeed = 1;
+    this.gameSpeed = 5;
     this.isGameRunning = false;
     this.respawnTime = 0;
     this.score = 0;
@@ -69,6 +69,8 @@ class PlayScene extends Phaser.Scene {
     this.gameOverScreen.add([this.gameOverText, this.restart]);
 
     this.obsticles = this.physics.add.group();
+    //
+    // this.rewards = this.physics.add.group();
 
     this.initAnims();
     this.initStartTrigger();
@@ -130,7 +132,7 @@ class PlayScene extends Phaser.Scene {
           callbackScope: this,
           callback: () => {
             this.trump.setVelocityX(80);
-            this.trump.play("dino-run", 1);
+            this.trump.play("run-animation", 1);
 
             if (this.ground.width < width) {
               this.ground.width += 17 * 2;
@@ -154,7 +156,7 @@ class PlayScene extends Phaser.Scene {
 
   initAnims() {
     this.anims.create({
-      key: "dino-run",
+      key: "run-animation",
       frames: this.anims.generateFrameNumbers("trump-run", {
         start: 0,
         end: 4,
@@ -163,19 +165,19 @@ class PlayScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.anims.create({
-      key: "dino-down-anim",
-      frames: this.anims.generateFrameNumbers("dino-down", {
-        start: 0,
-        end: 1,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: "dino-down-anim",
+    //   frames: this.anims.generateFrameNumbers("dino-down", {
+    //     start: 0,
+    //     end: 1,
+    //   }),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
     this.anims.create({
-      key: "enemy-dino-fly",
-      frames: this.anims.generateFrameNumbers("enemy-bird", {
+      key: "dollar",
+      frames: this.anims.generateFrameNumbers("dollar-bill", {
         start: 0,
         end: 1,
       }),
@@ -212,6 +214,10 @@ class PlayScene extends Phaser.Scene {
         const score = Array.from(String(this.score), Number);
         for (let i = 0; i < 5 - String(this.score).length; i++) {
           score.unshift(0);
+          // Ex nåt händer vid score x
+          if (this.score >= 40) {
+            console.log("Hello");
+          }
         }
 
         this.scoreText.setText(score.join(""));
@@ -234,38 +240,51 @@ class PlayScene extends Phaser.Scene {
     ///////CUSTOM CONTROLS//////////
     // Playing with W & S for Flappy birds stuff
     this.input.keyboard.on("keydown-W", () => {
-      if (this.trump.body.velocity.x > 0) {
-        return;
-      }
+      // if (this.trump.body.velocity.x > 0) {
+      //   return;
+      // }
       // UP
       this.jumpSound.play();
       this.trump.body.height = 92;
       this.trump.body.offset.y = 0;
-      this.trump.setVelocityY(-600);
-      this.trump.setGravityY(200);
+      this.trump.setVelocityY(-200);
+      this.trump.setGravityY(300);
     });
     // DOWN
     this.input.keyboard.on("keydown-S", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      this.trump.setVelocityY(190);
+      this.trump.setVelocityY(200);
     });
     // Left and right
     this.input.keyboard.on("keydown-A", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      this.trump.setVelocityX(-90);
+      this.trump.setVelocityX(-100);
     });
 
     this.input.keyboard.on("keydown-D", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      this.trump.setVelocityX(90);
+      this.trump.setVelocityX(100);
     });
 
-    // END FLAPPY BIRDS
-    ///////////////////
-    ///////////////////
+    // RESTART FUNKTIONER
+    this.input.keyboard.on("keydown-R", () => {
+      // Funktions
+      console.log("Pressed R");
+    });
+
+    // Increase / Decrease speed by 1
+    this.input.keyboard.on("keydown_UP", () => {
+      this.gameSpeed++;
+      console.log(this.gameSpeed);
+    });
+
+    this.input.keyboard.on("keydown_DOWN", () => {
+      this.gameSpeed--;
+      console.log(this.gameSpeed);
+    });
 
     this.input.keyboard.on("keydown_SPACE", () => {
       if (!this.trump.body.onFloor() || this.trump.body.velocity.x > 0) {
@@ -309,10 +328,10 @@ class PlayScene extends Phaser.Scene {
         .create(
           this.game.config.width + distance,
           this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
-          `enemy-bird`
+          `dollar-bill`
         )
         .setOrigin(0, 1);
-      obsticle.play("enemy-dino-fly", 1);
+      obsticle.play("dollar", 1);
       obsticle.body.height = obsticle.body.height / 1.5;
     } else {
       obsticle = this.obsticles
@@ -328,6 +347,27 @@ class PlayScene extends Phaser.Scene {
 
     obsticle.setImmovable();
   }
+  ////
+  // placeReward() {
+  //   const rewardNum = Math.floor(Math.random() * 7) + 1;
+  //   const distance = Phaser.Math.Between(600, 900);
+
+  //   let reward;
+  //   if (rewardNum > 0) {
+  //     const enemyHeight = [20, 50];
+  //     reward = this.rewards
+  //       .create(
+  //         this.game.config.width + distance,
+  //         this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
+  //         `reward-1`
+  //       )
+  //       .setOrigin(0, 1);
+  //     reward.play("reward-1", 1);
+  //     reward.body.height = reward.body.height / 1.5;
+  //   }
+  //   obsticle.setImmovable();
+  // }
+  ///
 
   // Updates
   update(time, delta) {
@@ -361,9 +401,9 @@ class PlayScene extends Phaser.Scene {
       this.trump.anims.stop();
       this.trump.setTexture("trump-run", 0);
     } else {
-      this.trump.body.height <= 58
-        ? this.trump.play("dino-down-anim", true)
-        : this.trump.play("dino-run", true);
+      this.trump.body.height <= 58;
+      // ? this.trump.play("dino-down-anim", true)
+      this.trump.play("run-animation", true);
     }
   }
 }

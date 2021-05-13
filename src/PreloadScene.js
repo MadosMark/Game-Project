@@ -23,7 +23,7 @@ class PreloadScene extends Phaser.Scene {
       frameHeight: 94,
     });
 
-    this.load.spritesheet("enemy-bird", "assets/trump/dolla.png", {
+    this.load.spritesheet("dollar-bill", "assets/trump/dolla.png", {
       frameWidth: 92,
       frameHeight: 77,
     });
@@ -34,6 +34,8 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("obsticle-4", "assets/trump/mexican_big.png");
     this.load.image("obsticle-5", "assets/trump/nuclear.png");
     this.load.image("obsticle-6", "assets/trump/money.png");
+
+    this.load.image("reward-1", "assets/trump/money.png");
   }
 
   create() {
