@@ -51,12 +51,12 @@ class PlayScene extends Phaser.Scene {
 
     this.environment = this.add.group();
     this.environment.addMultiple([
-      this.add.image(width / 2, 190, "cloud"),
-      this.add.image(width - 110, 150, "cloud"),
-      // this.add.image(width / 1.3, 130, "cloud"),
-      this.add.image(width / 1.5, 80, "flag"),
-      this.add.image(width / 4, 110, "flag"),
-      this.add.image(width / -1, 100, "sun"),
+      // this.add.image(width / 2, 190, "cloud"),
+      // this.add.image(width - 110, 150, "cloud"),
+      // // this.add.image(width / 1.3, 130, "cloud"),
+      // this.add.image(width / 1.5, 80, "flag"),
+      // this.add.image(width / 4, 110, "flag"),
+      // this.add.image(width / -1, 100, "sun"),
     ]);
 
     this.environment.setAlpha(0);
@@ -97,16 +97,16 @@ class PlayScene extends Phaser.Scene {
         this.highScoreText.setText("HI " + newScore);
         this.highScoreText.setAlpha(1);
 
-        // this.physics.pause();
-        // this.isGameRunning = false;
-        this.isGameRunning = true;
-        // this.anims.pauseAll();
-        // this.trump.setTexture("trump-dead");
-        // this.respawnTime = 0;
-        // this.gameSpeed = 10;
-        // this.gameOverScreen.setAlpha(1);
-        // this.score = 0;
-        // this.hitSound.play();
+        this.physics.pause();
+        this.isGameRunning = false;
+        // this.isGameRunning = true;
+        this.anims.pauseAll();
+        this.trump.setTexture("trump-dead");
+        this.respawnTime = 0;
+        this.gameSpeed = 10;
+        this.gameOverScreen.setAlpha(1);
+        this.score = 0;
+        this.hitSound.play();
       },
       null,
       this
@@ -165,16 +165,6 @@ class PlayScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    // this.anims.create({
-    //   key: "dino-down-anim",
-    //   frames: this.anims.generateFrameNumbers("dino-down", {
-    //     start: 0,
-    //     end: 1,
-    //   }),
-    //   frameRate: 10,
-    //   repeat: -1,
-    // });
-
     this.anims.create({
       key: "dollar",
       frames: this.anims.generateFrameNumbers("dollar-bill", {
@@ -215,9 +205,9 @@ class PlayScene extends Phaser.Scene {
         for (let i = 0; i < 5 - String(this.score).length; i++) {
           score.unshift(0);
           // Ex nåt händer vid score x
-          if (this.score >= 40) {
-            console.log("Hello");
-          }
+          // if (this.score >= 40) {
+          //   console.log("Hello");
+          // }
         }
 
         this.scoreText.setText(score.join(""));
@@ -319,54 +309,111 @@ class PlayScene extends Phaser.Scene {
 
   placeObsticle() {
     const obsticleNum = Math.floor(Math.random() * 7) + 1;
-    const distance = Phaser.Math.Between(600, 900); // Distance between obsticles
+    const distance = Phaser.Math.Between(200, 400); // Distance between obsticles
 
     let obsticle;
-    if (obsticleNum > 6) {
-      const enemyHeight = [20, 50];
+
+    // 7 Dollar
+    if (obsticleNum === 7) {
+      const enemyHeight = [1, 200];
       obsticle = this.obsticles
         .create(
           this.game.config.width + distance,
-          this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
+          this.game.config.height / 2,
           `dollar-bill`
         )
         .setOrigin(0, 1);
       obsticle.play("dollar", 1);
       obsticle.body.height = obsticle.body.height / 1.5;
-    } else {
+    }
+    // 6 Money
+    if (obsticleNum === 6) {
+      // const enemyHeight = [20, 50];
       obsticle = this.obsticles
         .create(
           this.game.config.width + distance,
           this.game.config.height,
-          `obsticle-${obsticleNum}`
+          `obsticle-6`
         )
         .setOrigin(0, 1);
-
-      obsticle.body.offset.y = +10;
+      obsticle.body.height = obsticle.body.height / 1.5;
     }
+    // 5 Nuclear
+    if (obsticleNum === 5) {
+      const enemyHeight = [1, 200];
+      obsticle = this.obsticles
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
+          `obsticle-5`
+        )
+        .setOrigin(0, 1);
+      obsticle.body.height = obsticle.body.height / 1.5;
+    }
+    // 4 Mexican
+    if (obsticleNum === 4) {
+      const enemyHeight = [20, 50];
+      obsticle = this.obsticles
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
+          `obsticle-4`
+        )
+        .setOrigin(0, 1);
+      obsticle.body.height = obsticle.body.height / 1.5;
+    }
+    // 3 Corona
+    if (obsticleNum === 3) {
+      const enemyHeight = [20, 50];
+      obsticle = this.obsticles
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
+          `obsticle-3`
+        )
+        .setOrigin(0, 1);
+      obsticle.body.height = obsticle.body.height / 1.5;
+    }
+    // 2 Twitter
+    if (obsticleNum === 2) {
+      const enemyHeight = [20, 50];
+      obsticle = this.obsticles
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
+          `obsticle-2`
+        )
+        .setOrigin(0, 1);
+      obsticle.body.height = obsticle.body.height / 1.5;
+    }
+    // 1 Mexican
+    if (obsticleNum === 1) {
+      const enemyHeight = [20, 50];
+      obsticle = this.obsticles
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
+          `obsticle-1`
+        )
+        .setOrigin(0, 1);
+      obsticle.body.height = obsticle.body.height / 1.5;
+    }
+    // else {
+    //   obsticle = this.obsticles
+    //     .create(
+    //       this.game.config.width + distance,
+    //       this.game.config.height,
+    //       `obsticle-${obsticleNum}`
+    //     )
+    //     .setOrigin(0, 1);
+
+    //   obsticle.body.offset.y = +10;
+    // }
 
     obsticle.setImmovable();
   }
   ////
-  // placeReward() {
-  //   const rewardNum = Math.floor(Math.random() * 7) + 1;
-  //   const distance = Phaser.Math.Between(600, 900);
-
-  //   let reward;
-  //   if (rewardNum > 0) {
-  //     const enemyHeight = [20, 50];
-  //     reward = this.rewards
-  //       .create(
-  //         this.game.config.width + distance,
-  //         this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
-  //         `reward-1`
-  //       )
-  //       .setOrigin(0, 1);
-  //     reward.play("reward-1", 1);
-  //     reward.body.height = reward.body.height / 1.5;
-  //   }
-  //   obsticle.setImmovable();
-  // }
+  placeReward() {}
   ///
 
   // Updates

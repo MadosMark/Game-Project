@@ -13,9 +13,9 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("trump-dead", "assets/trump/trump_dead.png");
     this.load.image("restart", "assets/trump/restart.png");
     this.load.image("game-over", "assets/trump/fired.png");
-    this.load.image("flag", "assets/trump/usa_flag.png");
-    this.load.image("cloud", "assets/trump/ballot.png");
-    this.load.image("sun", "assets/trump/donald-sun.png");
+    // this.load.image("flag", "assets/trump/usa_flag.png");
+    // this.load.image("cloud", "assets/trump/ballot.png");
+    // this.load.image("sun", "assets/trump/donald-sun.png");
     this.load.image("trump_idle", "assets/trump/trump_idle.png");
 
     this.load.spritesheet("trump-run", "assets/trump/trump_run.png", {
@@ -35,7 +35,12 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("obsticle-5", "assets/trump/nuclear.png");
     this.load.image("obsticle-6", "assets/trump/money.png");
 
-    this.load.image("reward-1", "assets/trump/money.png");
+    this.load.image("reward-1", "assets/figma/coin.png");
+    this.load.image("reward-2", "assets/figma/coin.png");
+    this.load.image("reward-3", "assets/figma/coin.png");
+    this.load.image("reward-4", "assets/figma/coin.png");
+    this.load.image("reward-5", "assets/figma/coin.png");
+    this.load.image("reward-6", "assets/figma/coin.png");
   }
 
   create() {
