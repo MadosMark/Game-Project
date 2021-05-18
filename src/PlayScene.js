@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+// var coin;
 
 class PlayScene extends Phaser.Scene {
   constructor() {
@@ -11,7 +12,7 @@ class PlayScene extends Phaser.Scene {
     this.isGameRunning = false;
     this.respawnTime = 0;
     this.score = 0;
-
+    // coin = this.physics.add.sprite(300, 300, "coin");
     this.jumpSound = this.sound.add("jump", { volume: 0.2 });
     this.hitSound = this.sound.add("hit", { volume: 0.2 });
     this.reachSound = this.sound.add("reach", { volume: 0.2 });
@@ -70,7 +71,7 @@ class PlayScene extends Phaser.Scene {
 
     this.obsticles = this.physics.add.group();
     //
-    // this.rewards = this.physics.add.group();
+    this.rewards = this.physics.add.group();
 
     this.initAnims();
     this.initStartTrigger();
@@ -97,16 +98,16 @@ class PlayScene extends Phaser.Scene {
         this.highScoreText.setText("HI " + newScore);
         this.highScoreText.setAlpha(1);
 
-        this.physics.pause();
-        this.isGameRunning = false;
-        // this.isGameRunning = true;
-        this.anims.pauseAll();
-        this.trump.setTexture("trump-dead");
-        this.respawnTime = 0;
-        this.gameSpeed = 10;
-        this.gameOverScreen.setAlpha(1);
-        this.score = 0;
-        this.hitSound.play();
+        // this.physics.pause();
+        // this.isGameRunning = false;
+        this.isGameRunning = true;
+        // this.anims.pauseAll();
+        // this.trump.setTexture("trump-dead");
+        // this.respawnTime = 0;
+        // this.gameSpeed = 10;
+        // this.gameOverScreen.setAlpha(1);
+        // this.score = 0;
+        // this.hitSound.play();
       },
       null,
       this
@@ -174,6 +175,16 @@ class PlayScene extends Phaser.Scene {
       frameRate: 6,
       repeat: -1,
     });
+
+    this.anims.create({
+      key: "coin",
+      frames: this.anims.generateFrameNumbers("coin-anim", {
+        start: 0,
+        end: 4,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
   }
 
   handleScore() {
@@ -237,26 +248,26 @@ class PlayScene extends Phaser.Scene {
       this.jumpSound.play();
       this.trump.body.height = 92;
       this.trump.body.offset.y = 0;
-      this.trump.setVelocityY(-200);
+      this.trump.setVelocityY(-250);
       this.trump.setGravityY(300);
     });
     // DOWN
     this.input.keyboard.on("keydown-S", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      this.trump.setVelocityY(200);
+      this.trump.setVelocityY(250);
     });
     // Left and right
     this.input.keyboard.on("keydown-A", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      this.trump.setVelocityX(-100);
+      this.trump.setVelocityX(-200);
     });
 
     this.input.keyboard.on("keydown-D", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      this.trump.setVelocityX(100);
+      this.trump.setVelocityX(200);
     });
 
     // RESTART FUNKTIONER
@@ -313,9 +324,23 @@ class PlayScene extends Phaser.Scene {
 
     let obsticle;
 
+    // 8 Coin
+    // if (obsticleNum === 8) {
+    //   // const enemyHeight = [1, 200];
+    //   obsticle = this.obsticles
+    //     .create(
+    //       this.game.config.width + distance,
+    //       this.game.config.height / 2,
+    //       `coin-anim`
+    //     )
+    //     .setOrigin(0, 1);
+    //   obsticle.play("coin", 1);
+    //   obsticle.body.height = obsticle.body.height / 1.5;
+    // }
+
     // 7 Dollar
     if (obsticleNum === 7) {
-      const enemyHeight = [1, 200];
+      // const enemyHeight = [1, 200];
       obsticle = this.obsticles
         .create(
           this.game.config.width + distance,
@@ -364,7 +389,7 @@ class PlayScene extends Phaser.Scene {
     }
     // 3 Corona
     if (obsticleNum === 3) {
-      const enemyHeight = [20, 50];
+      const enemyHeight = [1, 200];
       obsticle = this.obsticles
         .create(
           this.game.config.width + distance,
@@ -413,7 +438,39 @@ class PlayScene extends Phaser.Scene {
     obsticle.setImmovable();
   }
   ////
-  placeReward() {}
+  placeReward() {
+    const rewardNum = Math.floor(Math.random() * 2) + 1;
+    const distance = Phaser.Math.Between(200, 400); // Distance between obsticles
+
+    let reward;
+
+    if (rewardNum === 1) {
+      // const enemyHeight = [1, 200];
+      reward = this.obsticles
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height / 2,
+          `coin-anim`
+        )
+        .setOrigin(0, 1);
+      reward.play("coin", 1);
+      reward.body.height = reward.body.height / 1.5;
+    }
+    if (rewardNum === 2) {
+      // const enemyHeight = [1, 200];
+      reward = this.obsticles
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height / 2,
+          `coin-anim`
+        )
+        .setOrigin(0, 1);
+      reward.play("coin", 1);
+      reward.body.height = reward.body.height / 1.5;
+    }
+
+    reward.setImmovable();
+  }
   ///
 
   // Updates
@@ -423,18 +480,26 @@ class PlayScene extends Phaser.Scene {
     }
     this.ground.tilePositionX += this.gameSpeed;
     Phaser.Actions.IncX(this.obsticles.getChildren(), -this.gameSpeed);
+    Phaser.Actions.IncX(this.rewards.getChildren(), -this.gameSpeed);
     Phaser.Actions.IncX(this.environment.getChildren(), -0.5);
 
     this.respawnTime += delta * this.gameSpeed * 0.08;
     // console.log(this.gameSpeed);
     if (this.respawnTime >= 1500) {
       this.placeObsticle();
+      this.placeReward();
       this.respawnTime = 0;
     }
 
     this.obsticles.getChildren().forEach((obsticle) => {
       if (obsticle.getBounds().right < 0) {
         this.obsticles.killAndHide(obsticle);
+      }
+    });
+
+    this.rewards.getChildren().forEach((reward) => {
+      if (reward.getBounds().right < 0) {
+        this.rewards.killAndHide(reward);
       }
     });
 

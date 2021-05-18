@@ -23,9 +23,16 @@ class PreloadScene extends Phaser.Scene {
       frameHeight: 94,
     });
 
+    // Obsticle 7
     this.load.spritesheet("dollar-bill", "assets/trump/dolla.png", {
       frameWidth: 92,
       frameHeight: 77,
+    });
+
+    // Obsticle 8
+    this.load.spritesheet("coin-anim", "assets/figma/coins.png", {
+      frameWidth: 22,
+      frameHeight: 22,
     });
 
     this.load.image("obsticle-1", "assets/trump/mexican.png");
@@ -34,13 +41,6 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("obsticle-4", "assets/trump/mexican_big.png");
     this.load.image("obsticle-5", "assets/trump/nuclear.png");
     this.load.image("obsticle-6", "assets/trump/money.png");
-
-    this.load.image("reward-1", "assets/figma/coin.png");
-    this.load.image("reward-2", "assets/figma/coin.png");
-    this.load.image("reward-3", "assets/figma/coin.png");
-    this.load.image("reward-4", "assets/figma/coin.png");
-    this.load.image("reward-5", "assets/figma/coin.png");
-    this.load.image("reward-6", "assets/figma/coin.png");
   }
 
   create() {
