@@ -8,7 +8,7 @@ class PreloadScene extends Phaser.Scene {
   preload() {
     this.load.audio("jump", "assets/trump/fart.m4a");
     this.load.audio("hit", "assets/trump/10-feet-taller.m4a");
-    this.load.audio("reach", "assets/reach.m4a");
+    //this.load.audio("reach", "assets/reach.m4a");
     this.load.image("ground", "assets/figma/ground.png");
     this.load.image("trump-dead", "assets/trump/trump_dead.png");
     this.load.image("restart", "assets/trump/restart.png");
@@ -23,24 +23,23 @@ class PreloadScene extends Phaser.Scene {
       frameHeight: 94,
     });
 
-    // Obsticle 7
+    // Rewards
     this.load.spritesheet("dollar-bill", "assets/trump/dolla.png", {
       frameWidth: 92,
       frameHeight: 77,
     });
 
-    // Obsticle 8
     this.load.spritesheet("coin-anim", "assets/figma/coins.png", {
       frameWidth: 22,
       frameHeight: 22,
     });
-
+    // Obsticles
     this.load.image("obsticle-1", "assets/trump/mexican.png");
     this.load.image("obsticle-2", "assets/trump/twitter.png");
     this.load.image("obsticle-3", "assets/trump/corona.png");
     this.load.image("obsticle-4", "assets/trump/mexican_big.png");
     this.load.image("obsticle-5", "assets/trump/nuclear.png");
-    this.load.image("obsticle-6", "assets/trump/money.png");
+    this.load.image("pileofgold", "assets/trump/money.png");
   }
 
   create() {

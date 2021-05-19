@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+
+var scarr;
 // var coin;
 
 class PlayScene extends Phaser.Scene {
@@ -12,10 +14,12 @@ class PlayScene extends Phaser.Scene {
     this.isGameRunning = false;
     this.respawnTime = 0;
     this.score = 0;
+    this.scarr = 0;
+
     // coin = this.physics.add.sprite(300, 300, "coin");
     this.jumpSound = this.sound.add("jump", { volume: 0.2 });
     this.hitSound = this.sound.add("hit", { volume: 0.2 });
-    this.reachSound = this.sound.add("reach", { volume: 0.2 });
+    // this.reachSound = this.sound.add("reach", { volume: 0.2 });
 
     this.startTrigger = this.physics.add
       .sprite(0, 10)
@@ -50,6 +54,15 @@ class PlayScene extends Phaser.Scene {
       .setOrigin(1, 0)
       .setAlpha(0);
 
+    // SCARR
+    this.scarr = this.add
+      .text(width, 35, "Coins Collected:" + this.scarr, {
+        font: "20px Arial",
+        fill: "#FFD700",
+      })
+      .setOrigin(1, 0)
+      .setAlpha(0);
+
     this.environment = this.add.group();
     this.environment.addMultiple([
       // this.add.image(width / 2, 190, "cloud"),
@@ -70,14 +83,15 @@ class PlayScene extends Phaser.Scene {
     this.gameOverScreen.add([this.gameOverText, this.restart]);
 
     this.obsticles = this.physics.add.group();
-    //
     this.rewards = this.physics.add.group();
 
     this.initAnims();
     this.initStartTrigger();
     this.initColliders();
+    this.initRewardColliders();
     this.handleInputs();
     this.handleScore();
+    // this.handleScarr():
   }
 
   initColliders() {
@@ -97,22 +111,40 @@ class PlayScene extends Phaser.Scene {
 
         this.highScoreText.setText("HI " + newScore);
         this.highScoreText.setAlpha(1);
-
-        // this.physics.pause();
-        // this.isGameRunning = false;
-        this.isGameRunning = true;
-        // this.anims.pauseAll();
-        // this.trump.setTexture("trump-dead");
-        // this.respawnTime = 0;
-        // this.gameSpeed = 10;
-        // this.gameOverScreen.setAlpha(1);
-        // this.score = 0;
-        // this.hitSound.play();
+        this.physics.pause();
+        this.isGameRunning = false;
+        // this.isGameRunning = true;
+        this.anims.pauseAll();
+        this.trump.setTexture("trump-dead");
+        this.respawnTime = 0;
+        this.gameSpeed = 10;
+        this.gameOverScreen.setAlpha(1);
+        this.score = 0;
+        this.hitSound.play();
       },
       null,
       this
     );
   }
+  // this.physics.add.overlap(player, coin, hit, null, this);
+  initRewardColliders() {
+    this.physics.add.collider(
+      this.trump,
+      this.rewards,
+
+      () => {
+        // function hit() {
+
+        // this.scarr++;
+        // this.scarr.setText("score: " + scarr);
+
+        this.isGameRunning = true;
+      },
+      null,
+      this
+    );
+  }
+  // this.physics.add.overlap(this.trump, coin, hit, null, this);
 
   initStartTrigger() {
     const { width, height } = this.game.config;
@@ -144,6 +176,7 @@ class PlayScene extends Phaser.Scene {
               this.isGameRunning = true;
               this.trump.setVelocityX(0);
               this.scoreText.setAlpha(1);
+              this.scarr.setAlpha(1);
               this.environment.setAlpha(1);
               startEvent.remove();
             }
@@ -201,7 +234,7 @@ class PlayScene extends Phaser.Scene {
         this.gameSpeed += 0.01;
 
         if (this.score % 100 === 0) {
-          this.reachSound.play();
+          // this.reachSound.play();
 
           this.tweens.add({
             targets: this.scoreText,
@@ -241,9 +274,6 @@ class PlayScene extends Phaser.Scene {
     ///////CUSTOM CONTROLS//////////
     // Playing with W & S for Flappy birds stuff
     this.input.keyboard.on("keydown-W", () => {
-      // if (this.trump.body.velocity.x > 0) {
-      //   return;
-      // }
       // UP
       this.jumpSound.play();
       this.trump.body.height = 92;
@@ -299,70 +329,46 @@ class PlayScene extends Phaser.Scene {
       this.trump.setTexture("trump-run", 0);
     });
 
-    // this.input.keyboard.on("keydown_DOWN", () => {
-    //   if (!this.trump.body.onFloor() || !this.isGameRunning) {
-    //     return;
-    //   }
-
-    //   this.trump.body.height = 58;
-    //   this.trump.body.offset.y = 34;
-    // });
-
     this.input.keyboard.on("keyup_DOWN", () => {
       if (this.score !== 0 && !this.isGameRunning) {
         return;
       }
-
       this.trump.body.height = 92;
       this.trump.body.offset.y = 0;
     });
   }
 
   placeObsticle() {
-    const obsticleNum = Math.floor(Math.random() * 7) + 1;
+    const obsticleNum = Math.floor(Math.random() * 5) + 1;
     const distance = Phaser.Math.Between(200, 400); // Distance between obsticles
 
     let obsticle;
-
-    // 8 Coin
-    // if (obsticleNum === 8) {
+    // 7 Dollar
+    // if (obsticleNum === 7) {
     //   // const enemyHeight = [1, 200];
     //   obsticle = this.obsticles
     //     .create(
     //       this.game.config.width + distance,
     //       this.game.config.height / 2,
-    //       `coin-anim`
+    //       `dollar-bill`
     //     )
     //     .setOrigin(0, 1);
-    //   obsticle.play("coin", 1);
+    //   obsticle.play("dollar", 1);
     //   obsticle.body.height = obsticle.body.height / 1.5;
     // }
 
-    // 7 Dollar
-    if (obsticleNum === 7) {
-      // const enemyHeight = [1, 200];
-      obsticle = this.obsticles
-        .create(
-          this.game.config.width + distance,
-          this.game.config.height / 2,
-          `dollar-bill`
-        )
-        .setOrigin(0, 1);
-      obsticle.play("dollar", 1);
-      obsticle.body.height = obsticle.body.height / 1.5;
-    }
     // 6 Money
-    if (obsticleNum === 6) {
-      // const enemyHeight = [20, 50];
-      obsticle = this.obsticles
-        .create(
-          this.game.config.width + distance,
-          this.game.config.height,
-          `obsticle-6`
-        )
-        .setOrigin(0, 1);
-      obsticle.body.height = obsticle.body.height / 1.5;
-    }
+    // if (obsticleNum === 6) {
+    //   // const enemyHeight = [20, 50];
+    //   obsticle = this.obsticles
+    //     .create(
+    //       this.game.config.width + distance,
+    //       this.game.config.height,
+    //       `obsticle-6`
+    //     )
+    //     .setOrigin(0, 1);
+    //   obsticle.body.height = obsticle.body.height / 1.5;
+    // }
     // 5 Nuclear
     if (obsticleNum === 5) {
       const enemyHeight = [1, 200];
@@ -381,7 +387,7 @@ class PlayScene extends Phaser.Scene {
       obsticle = this.obsticles
         .create(
           this.game.config.width + distance,
-          this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
+          this.game.config.height,
           `obsticle-4`
         )
         .setOrigin(0, 1);
@@ -417,36 +423,37 @@ class PlayScene extends Phaser.Scene {
       obsticle = this.obsticles
         .create(
           this.game.config.width + distance,
-          this.game.config.height - enemyHeight[Math.floor(Math.random() * 2)],
+          this.game.config.height,
           `obsticle-1`
         )
         .setOrigin(0, 1);
       obsticle.body.height = obsticle.body.height / 1.5;
     }
-    // else {
-    //   obsticle = this.obsticles
-    //     .create(
-    //       this.game.config.width + distance,
-    //       this.game.config.height,
-    //       `obsticle-${obsticleNum}`
-    //     )
-    //     .setOrigin(0, 1);
-
-    //   obsticle.body.offset.y = +10;
-    // }
 
     obsticle.setImmovable();
   }
   ////
   placeReward() {
-    const rewardNum = Math.floor(Math.random() * 2) + 1;
+    const rewardNum = Math.floor(Math.random() * 6) + 1;
     const distance = Phaser.Math.Between(200, 400); // Distance between obsticles
 
     let reward;
 
     if (rewardNum === 1) {
       // const enemyHeight = [1, 200];
-      reward = this.obsticles
+      reward = this.rewards
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height / 1.5,
+          `coin-anim`
+        )
+        .setOrigin(0, 1);
+      reward.play("coin", 1);
+      reward.body.height = reward.body.height / 1.5;
+    }
+    if (rewardNum === 2) {
+      // const enemyHeight = [1, 200];
+      reward = this.rewards
         .create(
           this.game.config.width + distance,
           this.game.config.height / 2,
@@ -456,16 +463,55 @@ class PlayScene extends Phaser.Scene {
       reward.play("coin", 1);
       reward.body.height = reward.body.height / 1.5;
     }
-    if (rewardNum === 2) {
+
+    if (rewardNum === 3) {
       // const enemyHeight = [1, 200];
-      reward = this.obsticles
+      reward = this.rewards
         .create(
           this.game.config.width + distance,
-          this.game.config.height / 2,
+          this.game.config.height / 2.5,
           `coin-anim`
         )
         .setOrigin(0, 1);
       reward.play("coin", 1);
+      reward.body.height = reward.body.height / 1.5;
+    }
+
+    if (rewardNum === 4) {
+      // const enemyHeight = [1, 200];
+      reward = this.rewards
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height / 3,
+          `coin-anim`
+        )
+        .setOrigin(0, 1);
+      reward.play("coin", 1);
+      reward.body.height = reward.body.height / 1.5;
+    }
+
+    if (rewardNum === 5) {
+      // const enemyHeight = [1, 200];
+      reward = this.rewards
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height / 2,
+          `dollar-bill`
+        )
+        .setOrigin(0, 1);
+      reward.play("dollar", 1);
+      reward.body.height = reward.body.height / 1.5;
+    }
+
+    if (rewardNum === 6) {
+      // const enemyHeight = [20, 50];
+      reward = this.rewards
+        .create(
+          this.game.config.width + distance,
+          this.game.config.height,
+          `pileofgold`
+        )
+        .setOrigin(0, 1);
       reward.body.height = reward.body.height / 1.5;
     }
 
