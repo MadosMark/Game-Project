@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-var scarr;
+// var scarr;
 // var coin;
 
 class PlayScene extends Phaser.Scene {
@@ -14,7 +14,7 @@ class PlayScene extends Phaser.Scene {
     this.isGameRunning = false;
     this.respawnTime = 0;
     this.score = 0;
-    this.scarr = 0;
+    this.rewardPoints = 0;
 
     // coin = this.physics.add.sprite(300, 300, "coin");
     this.jumpSound = this.sound.add("jump", { volume: 0.2 });
@@ -56,7 +56,7 @@ class PlayScene extends Phaser.Scene {
 
     // SCARR
     this.scarr = this.add
-      .text(width, 35, "Coins Collected:" + this.scarr, {
+      .text(width / 5, -100, "Coins Collected:" + this.rewardPoints, {
         font: "20px Arial",
         fill: "#FFD700",
       })
@@ -91,7 +91,7 @@ class PlayScene extends Phaser.Scene {
     this.initRewardColliders();
     this.handleInputs();
     this.handleScore();
-    // this.handleScarr():
+    // this.handleScarr();
   }
 
   initColliders() {
@@ -133,13 +133,11 @@ class PlayScene extends Phaser.Scene {
       this.rewards,
 
       () => {
-        // function hit() {
-
-        // this.scarr++;
-        // this.scarr.setText("score: " + scarr);
-
+        console.log("Touched a reward");
+        this.rewards.setAlpha(0);
         this.isGameRunning = true;
       },
+
       null,
       this
     );
@@ -259,6 +257,8 @@ class PlayScene extends Phaser.Scene {
     });
   }
 
+  // handleScarr() {}
+
   handleInputs() {
     this.restart.on("pointerdown", () => {
       this.trump.setVelocityY(0);
@@ -343,32 +343,6 @@ class PlayScene extends Phaser.Scene {
     const distance = Phaser.Math.Between(200, 400); // Distance between obsticles
 
     let obsticle;
-    // 7 Dollar
-    // if (obsticleNum === 7) {
-    //   // const enemyHeight = [1, 200];
-    //   obsticle = this.obsticles
-    //     .create(
-    //       this.game.config.width + distance,
-    //       this.game.config.height / 2,
-    //       `dollar-bill`
-    //     )
-    //     .setOrigin(0, 1);
-    //   obsticle.play("dollar", 1);
-    //   obsticle.body.height = obsticle.body.height / 1.5;
-    // }
-
-    // 6 Money
-    // if (obsticleNum === 6) {
-    //   // const enemyHeight = [20, 50];
-    //   obsticle = this.obsticles
-    //     .create(
-    //       this.game.config.width + distance,
-    //       this.game.config.height,
-    //       `obsticle-6`
-    //     )
-    //     .setOrigin(0, 1);
-    //   obsticle.body.height = obsticle.body.height / 1.5;
-    // }
     // 5 Nuclear
     if (obsticleNum === 5) {
       const enemyHeight = [1, 200];
@@ -383,7 +357,6 @@ class PlayScene extends Phaser.Scene {
     }
     // 4 Mexican
     if (obsticleNum === 4) {
-      const enemyHeight = [20, 50];
       obsticle = this.obsticles
         .create(
           this.game.config.width + distance,
@@ -419,7 +392,6 @@ class PlayScene extends Phaser.Scene {
     }
     // 1 Mexican
     if (obsticleNum === 1) {
-      const enemyHeight = [20, 50];
       obsticle = this.obsticles
         .create(
           this.game.config.width + distance,
