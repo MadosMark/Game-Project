@@ -19,6 +19,7 @@ class PlayScene extends Phaser.Scene {
     // coin = this.physics.add.sprite(300, 300, "coin");
     this.jumpSound = this.sound.add("jump", { volume: 0.2 });
     this.hitSound = this.sound.add("hit", { volume: 0.2 });
+    this.rewardSound = this.sound.add("coinCatch", { volume: 0.2 });
     // this.reachSound = this.sound.add("reach", { volume: 0.2 });
 
     this.startTrigger = this.physics.add
@@ -56,7 +57,7 @@ class PlayScene extends Phaser.Scene {
 
     // SCARR
     this.scarr = this.add
-      .text(width / 5, -100, "Coins Collected:" + this.rewardPoints, {
+      .text(width / 5, -100, "Coins Collected:", {
         font: "20px Arial",
         fill: "#FFD700",
       })
@@ -126,7 +127,7 @@ class PlayScene extends Phaser.Scene {
       this
     );
   }
-  // this.physics.add.overlap(player, coin, hit, null, this);
+
   initRewardColliders() {
     this.physics.add.collider(
       this.trump,
@@ -135,6 +136,20 @@ class PlayScene extends Phaser.Scene {
       () => {
         console.log("Touched a reward");
         this.rewards.setAlpha(0);
+
+        () => {
+          this.rewardPoints++;
+          this.scarr.setText(this.rewardPoints);
+        };
+        // this.scarr.setText(this.rewardPoints.join(""));
+        //score += 10;  //Increase the score by 10
+        // scoreText.setText("score: " + score); //Display the updated score
+        this.rewardSound.play();
+
+        if (this.gameSpeed > 3) {
+          this.gameSpeed--;
+        }
+
         this.isGameRunning = true;
       },
 
@@ -142,7 +157,6 @@ class PlayScene extends Phaser.Scene {
       this
     );
   }
-  // this.physics.add.overlap(this.trump, coin, hit, null, this);
 
   initStartTrigger() {
     const { width, height } = this.game.config;

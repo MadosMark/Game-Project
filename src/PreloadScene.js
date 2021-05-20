@@ -6,6 +6,7 @@ class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.audio("coinCatch", "assets/trump/coin_sound.m4a");
     this.load.audio("jump", "assets/trump/fart.m4a");
     this.load.audio("hit", "assets/trump/10-feet-taller.m4a");
     //this.load.audio("reach", "assets/reach.m4a");
