@@ -38,7 +38,7 @@ class PlayScene extends Phaser.Scene {
       .setOrigin(0, 1);
 
     this.scoreText = this.add
-      .text(width, 0, "00000", {
+      .text(980, -130, "00000", {
         fill: "#FFDF00",
         font: "500 25px Oswald",
         resolution: 5,
@@ -47,7 +47,7 @@ class PlayScene extends Phaser.Scene {
       .setAlpha(0);
 
     this.highScoreText = this.add
-      .text(0, 0, "00000", {
+      .text(0, -130, "00000", {
         fill: "#FFDF00",
         font: "500 25px Oswald",
         resolution: 5,
@@ -57,8 +57,16 @@ class PlayScene extends Phaser.Scene {
 
     // SCARR
     this.scarr = this.add
-      .text(width / 5, -100, "Coins Collected:", {
+      .text(width / 5, -120, "Bonus points: " + this.rewardPoints, {
         font: "20px Arial",
+        fill: "#FFD700",
+      })
+      .setOrigin(1, 0)
+      .setAlpha(0);
+
+    this.gameSpeedText = this.add
+      .text(width / 5, -50, "Game Speed: " + this.gameSpeed, {
+        font: "16px Roboto",
         fill: "#FFD700",
       })
       .setOrigin(1, 0)
@@ -135,20 +143,18 @@ class PlayScene extends Phaser.Scene {
 
       () => {
         console.log("Touched a reward");
-        this.rewards.setAlpha(0);
-
-        () => {
-          this.rewardPoints++;
-          this.scarr.setText(this.rewardPoints);
-        };
-        // this.scarr.setText(this.rewardPoints.join(""));
-        //score += 10;  //Increase the score by 10
-        // scoreText.setText("score: " + score); //Display the updated score
         this.rewardSound.play();
+        this.rewardPoints++;
+        this.rewards.setAlpha(0);
+        this.gameSpeedText.setText(
+          "Current speed = " + this.gameSpeed.toFixed(2)
+        );
 
-        if (this.gameSpeed > 3) {
-          this.gameSpeed--;
-        }
+        this.scarr.setText("Current bonus = " + this.rewardPoints);
+
+        // if (this.gameSpeed > 3) {
+        //   this.gameSpeed - 0.2;
+        // }
 
         this.isGameRunning = true;
       },
@@ -189,6 +195,7 @@ class PlayScene extends Phaser.Scene {
               this.trump.setVelocityX(0);
               this.scoreText.setAlpha(1);
               this.scarr.setAlpha(1);
+              this.gameSpeedText.setAlpha(1);
               this.environment.setAlpha(1);
               startEvent.remove();
             }
