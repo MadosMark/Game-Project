@@ -1,8 +1,5 @@
 import Phaser from "phaser";
 
-// var scarr;
-// var coin;
-
 class PlayScene extends Phaser.Scene {
   constructor() {
     super("PlayScene");
@@ -16,7 +13,6 @@ class PlayScene extends Phaser.Scene {
     this.score = 0;
     this.rewardPoints = 0;
 
-    // coin = this.physics.add.sprite(300, 300, "coin");
     this.jumpSound = this.sound.add("jump", { volume: 0.2 });
     this.hitSound = this.sound.add("hit", { volume: 0.2 });
     this.rewardSound = this.sound.add("coinCatch", { volume: 0.2 });
@@ -38,7 +34,7 @@ class PlayScene extends Phaser.Scene {
       .setOrigin(0, 1);
 
     this.scoreText = this.add
-      .text(980, -130, "00000", {
+      .text(width / 1, 5, "00000", {
         fill: "#FFDF00",
         font: "500 25px Oswald",
         resolution: 5,
@@ -47,17 +43,16 @@ class PlayScene extends Phaser.Scene {
       .setAlpha(0);
 
     this.highScoreText = this.add
-      .text(0, -130, "00000", {
+      .text(width / 25, 5, "00000", {
         fill: "#FFDF00",
         font: "500 25px Oswald",
         resolution: 5,
       })
       .setOrigin(1, 0)
       .setAlpha(0);
-
     // SCARR
     this.scarr = this.add
-      .text(width / 5, -120, "Bonus points: " + this.rewardPoints, {
+      .text(width / 7, 33, "BonusPoint: " + this.rewardPoints, {
         font: "20px Arial",
         fill: "#FFD700",
       })
@@ -65,8 +60,8 @@ class PlayScene extends Phaser.Scene {
       .setAlpha(0);
 
     this.gameSpeedText = this.add
-      .text(width / 5, -50, "Game Speed: " + this.gameSpeed, {
-        font: "16px Roboto",
+      .text(width / 7, 6, "GameSpeed: " + this.gameSpeed, {
+        font: "20px Arial",
         fill: "#FFD700",
       })
       .setOrigin(1, 0)
@@ -278,8 +273,6 @@ class PlayScene extends Phaser.Scene {
     });
   }
 
-  // handleScarr() {}
-
   handleInputs() {
     this.restart.on("pointerdown", () => {
       this.trump.setVelocityY(0);
@@ -401,7 +394,7 @@ class PlayScene extends Phaser.Scene {
     }
     // 2 Twitter
     if (obsticleNum === 2) {
-      const enemyHeight = [20, 50];
+      const enemyHeight = [20, 200];
       obsticle = this.obsticles
         .create(
           this.game.config.width + distance,
@@ -428,7 +421,7 @@ class PlayScene extends Phaser.Scene {
   ////
   placeReward() {
     const rewardNum = Math.floor(Math.random() * 6) + 1;
-    const distance = Phaser.Math.Between(200, 400); // Distance between obsticles
+    const distance = Phaser.Math.Between(200, 300); // Distance between obsticles
 
     let reward;
 
