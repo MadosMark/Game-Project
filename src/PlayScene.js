@@ -115,8 +115,13 @@ class PlayScene extends Phaser.Scene {
         this.trump.setTexture("trump-dead");
         this.respawnTime = 0;
         this.gameSpeed = 5;
+        this.gameSpeedText.setText(
+          "Current speed = " + this.gameSpeed.toFixed(0)
+        );
         this.gameOverScreen.setAlpha(1);
         this.score = 0;
+        this.rewardPoints = 0;
+        this.scarr.setText("Current bonus = " + this.rewardPoints);
         this.hitSound.play();
       },
       null,
@@ -264,6 +269,7 @@ class PlayScene extends Phaser.Scene {
       this.trump.body.offset.y = 0;
       this.physics.resume();
       this.obsticles.clear(true, true);
+      this.rewards.clear(true, true);
       this.isGameRunning = true;
       this.gameOverScreen.setAlpha(0);
       this.anims.resumeAll();
