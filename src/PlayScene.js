@@ -13,10 +13,9 @@ class PlayScene extends Phaser.Scene {
     this.score = 0;
     this.rewardPoints = 0;
 
-    this.jumpSound = this.sound.add("jump", { volume: 0.2 });
-    this.hitSound = this.sound.add("hit", { volume: 0.2 });
-    this.rewardSound = this.sound.add("coinCatch", { volume: 0.2 });
-    // this.reachSound = this.sound.add("reach", { volume: 0.2 });
+    this.jumpSound = this.sound.add("jump", { volume: 0.1 });
+    this.hitSound = this.sound.add("hit", { volume: 0.1 });
+    this.rewardSound = this.sound.add("coinCatch", { volume: 0.05 });
 
     this.startTrigger = this.physics.add
       .sprite(0, 10)
@@ -52,7 +51,7 @@ class PlayScene extends Phaser.Scene {
       .setAlpha(0);
     // SCARR
     this.scarr = this.add
-      .text(width / 7, 33, "BonusPoint: " + this.rewardPoints, {
+      .text(width / 5, 33, "BonusPoint: " + this.rewardPoints, {
         font: "20px Arial",
         fill: "#FFD700",
       })
@@ -60,7 +59,7 @@ class PlayScene extends Phaser.Scene {
       .setAlpha(0);
 
     this.gameSpeedText = this.add
-      .text(width / 7, 6, "GameSpeed: " + this.gameSpeed, {
+      .text(width / 5, 6, "GameSpeed: " + this.gameSpeed, {
         font: "20px Arial",
         fill: "#FFD700",
       })
@@ -69,16 +68,12 @@ class PlayScene extends Phaser.Scene {
 
     this.environment = this.add.group();
     this.environment.addMultiple([
-      // this.add.image(width / 2, 190, "cloud"),
-      // this.add.image(width - 110, 150, "cloud"),
-      // // this.add.image(width / 1.3, 130, "cloud"),
+      // this.add.image(width - 110, 150, "ballot"),
       // this.add.image(width / 1.5, 80, "flag"),
-      // this.add.image(width / 4, 110, "flag"),
       // this.add.image(width / -1, 100, "sun"),
     ]);
 
     this.environment.setAlpha(0);
-
     this.gameOverScreen = this.add
       .container(width / 2, height / 2 - 50)
       .setAlpha(0);
@@ -95,7 +90,6 @@ class PlayScene extends Phaser.Scene {
     this.initRewardColliders();
     this.handleInputs();
     this.handleScore();
-    // this.handleScarr();
   }
 
   initColliders() {
@@ -117,11 +111,10 @@ class PlayScene extends Phaser.Scene {
         this.highScoreText.setAlpha(1);
         this.physics.pause();
         this.isGameRunning = false;
-        // this.isGameRunning = true;
         this.anims.pauseAll();
         this.trump.setTexture("trump-dead");
         this.respawnTime = 0;
-        this.gameSpeed = 10;
+        this.gameSpeed = 5;
         this.gameOverScreen.setAlpha(1);
         this.score = 0;
         this.hitSound.play();
@@ -137,23 +130,22 @@ class PlayScene extends Phaser.Scene {
       this.rewards,
 
       () => {
-        console.log("Touched a reward");
         this.rewardSound.play();
+        // console.log("Touched a reward");
         this.rewardPoints++;
         this.rewards.setAlpha(0);
         this.gameSpeedText.setText(
-          "Current speed = " + this.gameSpeed.toFixed(2)
+          "Current speed = " + this.gameSpeed.toFixed(0)
         );
 
         this.scarr.setText("Current bonus = " + this.rewardPoints);
 
-        // if (this.gameSpeed > 3) {
-        //   this.gameSpeed - 0.2;
-        // }
+        if (this.gameSpeed > 8) {
+          this.gameSpeed--;
+        }
 
         this.isGameRunning = true;
       },
-
       null,
       this
     );
@@ -248,8 +240,6 @@ class PlayScene extends Phaser.Scene {
         this.gameSpeed += 0.01;
 
         if (this.score % 100 === 0) {
-          // this.reachSound.play();
-
           this.tweens.add({
             targets: this.scoreText,
             duration: 100,
@@ -262,10 +252,6 @@ class PlayScene extends Phaser.Scene {
         const score = Array.from(String(this.score), Number);
         for (let i = 0; i < 5 - String(this.score).length; i++) {
           score.unshift(0);
-          // Ex nåt händer vid score x
-          // if (this.score >= 40) {
-          //   console.log("Hello");
-          // }
         }
 
         this.scoreText.setText(score.join(""));
@@ -314,12 +300,6 @@ class PlayScene extends Phaser.Scene {
       this.trump.setVelocityX(200);
     });
 
-    // RESTART FUNKTIONER
-    this.input.keyboard.on("keydown-R", () => {
-      // Funktions
-      console.log("Pressed R");
-    });
-
     // Increase / Decrease speed by 1
     this.input.keyboard.on("keydown_UP", () => {
       this.gameSpeed++;
@@ -340,6 +320,7 @@ class PlayScene extends Phaser.Scene {
       this.trump.body.height = 92;
       this.trump.body.offset.y = 0;
       this.trump.setVelocityY(-1600);
+      this.trump.setGravityY(5000);
       this.trump.setTexture("trump-run", 0);
     });
 
@@ -354,7 +335,7 @@ class PlayScene extends Phaser.Scene {
 
   placeObsticle() {
     const obsticleNum = Math.floor(Math.random() * 5) + 1;
-    const distance = Phaser.Math.Between(200, 400); // Distance between obsticles
+    const distance = Phaser.Math.Between(600, 800); // Distance between obsticles
 
     let obsticle;
     // 5 Nuclear
@@ -421,12 +402,11 @@ class PlayScene extends Phaser.Scene {
   ////
   placeReward() {
     const rewardNum = Math.floor(Math.random() * 6) + 1;
-    const distance = Phaser.Math.Between(200, 300); // Distance between obsticles
+    const distance = Phaser.Math.Between(400, 600); // Distance between obsticles
 
     let reward;
 
     if (rewardNum === 1) {
-      // const enemyHeight = [1, 200];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
@@ -438,7 +418,6 @@ class PlayScene extends Phaser.Scene {
       reward.body.height = reward.body.height / 1.5;
     }
     if (rewardNum === 2) {
-      // const enemyHeight = [1, 200];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
@@ -451,7 +430,6 @@ class PlayScene extends Phaser.Scene {
     }
 
     if (rewardNum === 3) {
-      // const enemyHeight = [1, 200];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
@@ -464,7 +442,6 @@ class PlayScene extends Phaser.Scene {
     }
 
     if (rewardNum === 4) {
-      // const enemyHeight = [1, 200];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
@@ -477,7 +454,6 @@ class PlayScene extends Phaser.Scene {
     }
 
     if (rewardNum === 5) {
-      // const enemyHeight = [1, 200];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
@@ -490,7 +466,6 @@ class PlayScene extends Phaser.Scene {
     }
 
     if (rewardNum === 6) {
-      // const enemyHeight = [20, 50];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
@@ -516,7 +491,6 @@ class PlayScene extends Phaser.Scene {
     Phaser.Actions.IncX(this.environment.getChildren(), -0.5);
 
     this.respawnTime += delta * this.gameSpeed * 0.08;
-    // console.log(this.gameSpeed);
     if (this.respawnTime >= 1500) {
       this.placeObsticle();
       this.placeReward();
@@ -546,7 +520,6 @@ class PlayScene extends Phaser.Scene {
       this.trump.setTexture("trump-run", 0);
     } else {
       this.trump.body.height <= 58;
-      // ? this.trump.play("dino-down-anim", true)
       this.trump.play("run-animation", true);
     }
   }
