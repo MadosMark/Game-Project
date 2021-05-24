@@ -25,4 +25,4 @@ Tested by the following people:
 
 Tested by the following muggles (non-coders):
 
-1.
+1. Sofia Mellberg
