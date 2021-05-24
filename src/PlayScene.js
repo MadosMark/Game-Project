@@ -131,17 +131,15 @@ class PlayScene extends Phaser.Scene {
 
       () => {
         this.rewardSound.play();
-        // console.log("Touched a reward");
         this.rewardPoints++;
         this.rewards.setAlpha(0);
         this.gameSpeedText.setText(
           "Current speed = " + this.gameSpeed.toFixed(0)
         );
-
         this.scarr.setText("Current bonus = " + this.rewardPoints);
 
         if (this.gameSpeed > 8) {
-          this.gameSpeed--;
+          this.gameSpeed - 0.4;
         }
 
         this.isGameRunning = true;
@@ -278,26 +276,26 @@ class PlayScene extends Phaser.Scene {
       this.jumpSound.play();
       this.trump.body.height = 92;
       this.trump.body.offset.y = 0;
-      this.trump.setVelocityY(-250);
+      this.trump.setVelocityY(-300);
       this.trump.setGravityY(300);
     });
     // DOWN
     this.input.keyboard.on("keydown-S", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      this.trump.setVelocityY(250);
+      this.trump.setVelocityY(300);
     });
     // Left and right
     this.input.keyboard.on("keydown-A", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      this.trump.setVelocityX(-200);
+      this.trump.setVelocityX(-500);
     });
 
     this.input.keyboard.on("keydown-D", () => {
       this.trump.body.height = 92;
       this.trump.body.offset.x = 0;
-      this.trump.setVelocityX(200);
+      this.trump.setVelocityX(300);
     });
 
     // Increase / Decrease speed by 1
@@ -402,15 +400,16 @@ class PlayScene extends Phaser.Scene {
   ////
   placeReward() {
     const rewardNum = Math.floor(Math.random() * 6) + 1;
-    const distance = Phaser.Math.Between(400, 600); // Distance between obsticles
+    const distance = Phaser.Math.Between(600, 800); // Distance between obsticles
 
     let reward;
 
     if (rewardNum === 1) {
+      const rewardHeight = [75, 100];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
-          this.game.config.height / 1.5,
+          this.game.config.height - rewardHeight[Math.floor(Math.random() * 2)],
           `coin-anim`
         )
         .setOrigin(0, 1);
@@ -418,10 +417,11 @@ class PlayScene extends Phaser.Scene {
       reward.body.height = reward.body.height / 1.5;
     }
     if (rewardNum === 2) {
+      const rewardHeight = [50, 100];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
-          this.game.config.height / 2,
+          this.game.config.height - rewardHeight[Math.floor(Math.random() * 2)],
           `coin-anim`
         )
         .setOrigin(0, 1);
@@ -430,10 +430,11 @@ class PlayScene extends Phaser.Scene {
     }
 
     if (rewardNum === 3) {
+      const rewardHeight = [25, 100];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
-          this.game.config.height / 2.5,
+          this.game.config.height - rewardHeight[Math.floor(Math.random() * 2)],
           `coin-anim`
         )
         .setOrigin(0, 1);
@@ -442,10 +443,11 @@ class PlayScene extends Phaser.Scene {
     }
 
     if (rewardNum === 4) {
+      const rewardHeight = [25, 50];
       reward = this.rewards
         .create(
           this.game.config.width + distance,
-          this.game.config.height / 3,
+          this.game.config.height - rewardHeight[Math.floor(Math.random() * 2)],
           `coin-anim`
         )
         .setOrigin(0, 1);
