@@ -1,4 +1,5 @@
 INSERT MANDATORY GIF
+Test
 
 # Project Title
 
@@ -20,8 +21,8 @@ Add the installation instructions.
 
 Tested by the following people:
 
-1. 
+1.
 
 Tested by the following muggles (non-coders):
 
-1. 
+1. Sofia Mellberg
