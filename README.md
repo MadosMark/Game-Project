@@ -1,13 +1,17 @@
 INSERT MANDATORY GIF
 Test
 
-# Project Title
+# The Trump Run
 
-Text about the project and which JavaScript library you're using. This would also be a great place to link the game on Netlify.
+A 2D platformer where you play as the former president - Donald J Trump. 
+The goal is to collect coins and avoid obstacles for as long as you possibly can.
 
-# Installation
+https://the-trump-run.netlify.app/
 
-Add the installation instructions.
+
+
+
+
 
 # Changelog
 
