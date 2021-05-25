@@ -154,6 +154,12 @@ class PlayScene extends Phaser.Scene {
     );
   }
 
+  // this.rewards.getChildren().forEach((reward) => {
+  //   if (reward.getBounds().right < 0) {
+  //     this.rewards.killAndHide(reward);
+  //   }
+  // });
+
   initStartTrigger() {
     const { width, height } = this.game.config;
     this.physics.add.overlap(
@@ -339,7 +345,7 @@ class PlayScene extends Phaser.Scene {
 
   placeObsticle() {
     const obsticleNum = Math.floor(Math.random() * 5) + 1;
-    const distance = Phaser.Math.Between(600, 800); // Distance between obsticles
+    const distance = Phaser.Math.Between(600, 900); // Distance between obsticles
 
     let obsticle;
     // 5 Nuclear
