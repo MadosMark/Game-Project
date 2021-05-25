@@ -35,8 +35,12 @@ Tested by the following people:
 
 1. Jon McGarvie
 2. Joakim Sjögren
+3. Moa Berg
+4. Rikard Segerkvist
 
 Tested by the following muggles (non-coders):
 
 1. Sofia Mellberg
 2. Axel White
+3.
+4.
