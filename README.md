@@ -6,7 +6,7 @@ Test
 A 2D platformer where you play as the former president - Donald J Trump. 
 The goal is to collect coins and avoid obstacles for as long as you possibly can.
 
-https://the-trump-run.netlify.app/
+https://epic-trump-run.netlify.app/
 
 
 
