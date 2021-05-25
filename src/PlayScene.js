@@ -138,6 +138,7 @@ class PlayScene extends Phaser.Scene {
         this.rewardSound.play();
         this.rewardPoints++;
         this.rewards.setAlpha(0);
+
         this.gameSpeedText.setText(
           "Current speed = " + this.gameSpeed.toFixed(0)
         );
@@ -153,12 +154,6 @@ class PlayScene extends Phaser.Scene {
       this
     );
   }
-
-  // this.rewards.getChildren().forEach((reward) => {
-  //   if (reward.getBounds().right < 0) {
-  //     this.rewards.killAndHide(reward);
-  //   }
-  // });
 
   initStartTrigger() {
     const { width, height } = this.game.config;
