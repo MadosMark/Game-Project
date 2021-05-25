@@ -13,9 +13,8 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("trump-dead", "/trump/trump_dead.png");
     this.load.image("restart", "/trump/restart.png");
     this.load.image("game-over", "/trump/fired.png");
-    // this.load.image("flag", "assets/trump/usa_flag.png");
-    // this.load.image("ballot", "assets/trump/ballot.png");
-    // this.load.image("sun", "assets/trump/donald-sun.png");
+    this.load.image("flag", "/trump/ballon.png");
+    this.load.image("cloud", "/trump/cloud.png");
     this.load.image("trump_idle", "/trump/trump_idle.png");
 
     this.load.spritesheet("trump-run", "/trump/trump_run.png", {
