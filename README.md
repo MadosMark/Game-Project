@@ -1,27 +1,19 @@
-INSERT MANDATORY GIF
-Test
+![](https://c.tenor.com/zuCNy8k4DFAAAAAd/ugh-donald-trump.gif)
 
 # The Trump Run
 
-A 2D platformer where you play as the former president - Donald J Trump. 
+A 2D platformer where you play as the former president - Donald J Trump.
 The goal is to collect coins and avoid obstacles for as long as you possibly can.
 
 https://the-trump-run.netlify.app/
 
-
-
-
-
-
 # Changelog
 
-- https://github.com/MadosMark/Game-Project/tree/beta 
-(Branch for experimenting with the game)
+- https://github.com/MadosMark/Game-Project/tree/beta
+  (Branch for experimenting with the game)
 
 - https://github.com/MadosMark/Game-Project/tree/fullscreen
-(Branch with several cosmetics updates etc)
-
-
+  (Branch with several cosmetics updates etc)
 
 # Code Review
 
@@ -31,8 +23,10 @@ https://the-trump-run.netlify.app/
 
 Tested by the following people:
 
-1.
+1. Jon McGarvie
+2. Joakim Sjögren
 
 Tested by the following muggles (non-coders):
 
 1. Sofia Mellberg
+2. Axel White
