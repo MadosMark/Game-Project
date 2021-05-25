@@ -16,8 +16,18 @@ https://the-epic-trump-run.netlify.app/
   (Branch with several cosmetics updates etc)
 
 # Code Review
-
-1. `example.js:10-15` - Remember to think about X and this could be refactored using the amazing Y function.
+By: Jon McGarvie & Joakim Sjögren.
+1. `PlayScene.js:345-403` - This is repeated code and should be seperated into unique files using classes.
+2. `PlayScene.js:236-339` - Why is the "this.trump.body.height" variable reassigned on every keypress?
+3. `PlayScene.js:531` - The '<=' operator doesn't make any sense in this scenario.
+4. `PreloadScene.js` - Good to split the code out, increases readability, especially things that aren't that important such as loading images :thumbsup:
+5. Could use more comments in the code as it's hard to understand what everything does.
+6. Nice sound effects!
+7. `PlayScene.js:347-403` - Instead of using multiple if statements you could use a switch case to check the obsticleNum.
+8. `index.html:52-56` - Good idea to have an image as instructions!
+9. Gravity could be tweaked to make the game feel better to play.
+10. `PlayScene.js:311-316` - You have forgotten to remove "console.log()".
+11. Good job! :thumbsup:
 
 # Testers
 
