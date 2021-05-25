@@ -42,5 +42,5 @@ Tested by the following muggles (non-coders):
 
 1. Sofia Mellberg
 2. Axel White
-3.
-4.
+3. Felicia
+4. Martino
