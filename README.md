@@ -14,6 +14,10 @@ https://the-epic-trump-run.netlify.app/
 
 - https://github.com/MadosMark/Game-Project/tree/fullscreen
   (Branch with several cosmetics updates etc)
+  
+  - [#1 - Added gravity change on reward collide](https://github.com/MadosMark/Game-Project/pull/16)
+  
+
 
 # Code Review
 By: Jon McGarvie & Joakim Sjögren.
