@@ -73,7 +73,6 @@ class PlayScene extends Phaser.Scene {
       this.add.image(width / 3, 100, "flag"),
       this.add.image(width / 4, 120, "cloud"),
       this.add.image(width / 1, 100, "cloud"),
-      // this.add.image(width / -1, 100, "sun"),
     ]);
 
     this.environment.setAlpha(0);
@@ -140,6 +139,7 @@ class PlayScene extends Phaser.Scene {
       () => {
         this.rewardSound.play();
         this.rewardPoints++;
+        this.trump.body.setGravityY(5000);
         this.rewards.setAlpha(0);
 
         this.gameSpeedText.setText(
@@ -279,7 +279,7 @@ class PlayScene extends Phaser.Scene {
       this.anims.resumeAll();
     });
 
-    ///////CUSTOM CONTROLS//////////
+    //CONTROLS
     // Playing with W & S for Flappy birds stuff
     this.input.keyboard.on("keydown-W", () => {
       // UP
@@ -311,12 +311,10 @@ class PlayScene extends Phaser.Scene {
     // Increase / Decrease speed by 1
     this.input.keyboard.on("keydown_UP", () => {
       this.gameSpeed++;
-      console.log(this.gameSpeed);
     });
 
     this.input.keyboard.on("keydown_DOWN", () => {
       this.gameSpeed--;
-      console.log(this.gameSpeed);
     });
 
     this.input.keyboard.on("keydown_SPACE", () => {
@@ -343,8 +341,7 @@ class PlayScene extends Phaser.Scene {
 
   placeObsticle() {
     const obsticleNum = Math.floor(Math.random() * 5) + 1;
-    const distance = Phaser.Math.Between(600, 900); // Distance between obsticles
-
+    const distance = Phaser.Math.Between(600, 900);
     let obsticle;
     // 5 Nuclear
     if (obsticleNum === 5) {
@@ -407,11 +404,10 @@ class PlayScene extends Phaser.Scene {
 
     obsticle.setImmovable();
   }
-  ////
+
   placeReward() {
     const rewardNum = Math.floor(Math.random() * 6) + 1;
-    const distance = Phaser.Math.Between(600, 800); // Distance between obsticles
-
+    const distance = Phaser.Math.Between(600, 800);
     let reward;
 
     if (rewardNum === 1) {
