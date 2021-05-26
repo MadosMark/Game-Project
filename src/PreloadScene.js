@@ -10,7 +10,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.audio("jump", "/trump/jump.m4a");
     this.load.audio("hit", "/trump/10-feet-taller.m4a");
     this.load.image("ground", "/figma/ground.png");
-    this.load.image("trump-dead", "/trump/trump_dead.png");
+    this.load.image("trump-dead", "/trump/obama_stand.png");
     this.load.image("restart", "/trump/restart.png");
     this.load.image("game-over", "/trump/fired.png");
     this.load.image("flag", "/trump/ballon.png");
