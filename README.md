@@ -16,6 +16,7 @@ https://the-epic-trump-run.netlify.app/
   (Branch with several cosmetics updates etc)
   
   - [#1 - Added gravity change on reward collide](https://github.com/MadosMark/Game-Project/pull/16)
+  - [#2 - New Player - Barack Obama gets to take over the game. Play now as Obama!](https://github.com/MadosMark/Game-Project/pull/18)
   
 
 
