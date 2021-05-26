@@ -15,10 +15,10 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("game-over", "/trump/fired.png");
     this.load.image("flag", "/trump/ballon.png");
     this.load.image("cloud", "/trump/cloud.png");
-    this.load.image("trump_idle", "/trump/trump_idle.png");
+    this.load.image("trump_idle", "/trump/obama_stand.png");
 
-    this.load.spritesheet("trump-run", "/trump/trump_run.png", {
-      frameWidth: 88,
+    this.load.spritesheet("trump-run", "/trump/obama.png", {
+      frameWidth: 75,
       frameHeight: 94,
     });
 
