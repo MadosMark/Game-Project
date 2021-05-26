@@ -311,12 +311,10 @@ class PlayScene extends Phaser.Scene {
     // Increase / Decrease speed by 1
     this.input.keyboard.on("keydown_UP", () => {
       this.gameSpeed++;
-      console.log(this.gameSpeed);
     });
 
     this.input.keyboard.on("keydown_DOWN", () => {
       this.gameSpeed--;
-      console.log(this.gameSpeed);
     });
 
     this.input.keyboard.on("keydown_SPACE", () => {
