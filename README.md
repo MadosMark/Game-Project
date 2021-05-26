@@ -8,12 +8,6 @@ The goal is to collect coins and avoid obstacles for as long as you possibly can
 https://the-epic-trump-run.netlify.app/
 
 # Changelog
-
-- https://github.com/MadosMark/Game-Project/tree/beta
-  (Branch for experimenting with the game)
-
-- https://github.com/MadosMark/Game-Project/tree/fullscreen
-  (Branch with several cosmetics updates etc)
   
   - [#1 - Added gravity change on reward collide](https://github.com/MadosMark/Game-Project/pull/16)
   - [#2 - New Player - Barack Obama gets to take over the game. Play now as Obama!](https://github.com/MadosMark/Game-Project/pull/18)
